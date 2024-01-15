@@ -6,7 +6,7 @@
 /*   By: hel-moue <hel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 01:15:00 by hel-moue          #+#    #+#             */
-/*   Updated: 2024/01/14 19:20:06 by hel-moue         ###   ########.fr       */
+/*   Updated: 2024/01/15 21:53:43 by hel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ class PhoneBook
         void PRINT_CONTACT(std::string str);
         void SEARCH();
         void EXIT();
+        void SAVE();
 };
 
 #endif

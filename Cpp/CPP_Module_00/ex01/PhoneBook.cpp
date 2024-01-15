@@ -6,7 +6,7 @@
 /*   By: hel-moue <hel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 01:14:55 by hel-moue          #+#    #+#             */
-/*   Updated: 2024/01/14 19:30:06 by hel-moue         ###   ########.fr       */
+/*   Updated: 2024/01/15 23:00:28 by hel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ PhoneBook::PhoneBook()
     std::cout<<"|\033[33mSAVE   \033[32m| to save the contacts|\n";
     std::cout<<"|\033[33mHELP   \033[32m| to show the manuel  |\n"; 
     std::cout<<"\033[32m-------------------------------\033[0m\n";
+    std::cout << "\033[34mYou can use X or x to exit anytime\033[0m\n";
+    std::cout << "\033[34mYou can use CTRL + D to exit the program\033[0m\n";
+    std::cout << "\033[34mYou can use HELP or help to show the manuel anytime\033[0m\n";
+    std::cout << "\033[34mIf You Save the contacts, you will lose them when you exit the program\033[0m\n";
+    std::cout << "\033[34mIf You Don't Want to lose the contacts, you can save them anytime in the main menu\033[0m\n";
+    std::cout << "\033[31mThe Memory of the PhoneBook is limited to 8 contacts\033[0m\n";
+    std::cout << "\033[33mEnjoy !!\033[0m\n";
     nb_contacts = 0;
 }
 
@@ -31,35 +38,39 @@ void PhoneBook::Start()
 {
     std::cout<<"Enter the \033[35mcommand\033[0m :\n";
     std::getline(std::cin, command);
-    if(command == "ADD")
+    if(command == "ADD" || command == "add")
     {
         if (nb_contacts > 7)
             std::cout<<"\033[31mWarning !! You will lose the first contact !!\033[0m\n";
         ADD_CONTACT(Contacts[nb_contacts%8]);
     }
-    else if(command == "SEARCH")
+    else if(command == "SEARCH" || command == "search")
         SEARCH();
-    else if(command == "EXIT" || std::cin.eof())
+    else if(command == "EXIT" || std::cin.eof() || command == "exit")
         EXIT();
-    else if(command == "HELP")
-        PhoneBook();
-    else if (command == "SAVE")
+    else if(command == "HELP" || command == "help")
     {
-        std::ofstream file("contacts.txt");
+        PhoneBook();
+        Start();
+    }   
+    else if (command == "SAVE" || command == "save")
+    {
+        PRINT_CONTACTS();
+        std::ofstream file("Contacts.csv");
         if (file.is_open())
         {
-            unsigned int i = 0;
-            while (i < nb_contacts)
+            file << "First Name,Last Name,Nick Name,Phone Number,Darkest Secret\n";
+            for (unsigned int i = 0; i < nb_contacts; i++)
             {
-                file << "Contact number : " << i+1 << std::endl;
-                file << "First Name     : " << Contacts[i].get_first_name() << std::endl;
-                file << "Last Name      : " << Contacts[i].get_last_name() << std::endl;
-                file << "Nick Name      : " << Contacts[i].get_nick_name() << std::endl;
-                file << "Phone Number   : " << Contacts[i].get_phone_number() << std::endl;
-                i++;
+                file << Contacts[i].get_first_name() << ",";
+                file << Contacts[i].get_last_name() << ",";
+                file << Contacts[i].get_nick_name() << ",";
+                file << Contacts[i].get_phone_number() << ",";
+                file << Contacts[i].get_darckest_secret() << "\n";
             }
             file.close();
             std::cout << "\033[32mContacts saved successfully !!\033[0m\n";
+            std::cout << "\033[32mYou can find them in the file \033[35mContacts.csv\033[0m\n";
         }
         else
             std::cout << "\033[31mError\033[0m : \033[35mUnable to open file\033[0m\n";
@@ -81,8 +92,13 @@ void PhoneBook::SEARCH()
         std::getline(std::cin, index);
 		if (std::cin.eof())
 			EXIT();
-        if(index == "X")
+        if(index == "X" || index == "x")
             Start();
+        if(index == "HELP" || index == "help")
+        {
+            PhoneBook();
+            SEARCH();
+        }
         if (nb_contacts < 8)
             i = nb_contacts;
         else

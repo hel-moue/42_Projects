@@ -6,12 +6,11 @@
 /*   By: hel-moue <hel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 01:15:08 by hel-moue          #+#    #+#             */
-/*   Updated: 2024/01/14 19:18:03 by hel-moue         ###   ########.fr       */
+/*   Updated: 2024/01/15 22:51:35 by hel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
-#include "Contact.hpp"
 
 std::string PhoneBook::Get_10(std::string str)
 {
@@ -28,6 +27,13 @@ void PhoneBook::ADD_FIRST_NAME(Contact &Contacts)
     std::getline(std::cin, command);
     if (std::cin.eof())
         EXIT();
+    if (command == "X" || command == "x")
+        Start();
+    if (command == "HELP" || command == "help")
+    {
+        PhoneBook();
+        ADD_FIRST_NAME(Contacts);
+    }
     int flag = 0;
     for (unsigned int i = 0; i < command.length(); i++)
     {
@@ -51,6 +57,13 @@ void PhoneBook::ADD_LAST_NAME(Contact &Contacts)
     std::getline(std::cin, command);
     if (std::cin.eof())
         EXIT();
+    if (command == "X" || command == "x")
+        Start();
+    if (command == "HELP" || command == "help")
+    {
+        PhoneBook();
+        ADD_LAST_NAME(Contacts);
+    }
     int flag = 0;
     for (unsigned int i = 0; i < command.length(); i++)
     {
@@ -74,6 +87,13 @@ void PhoneBook::ADD_NICK_NAME(Contact &Contacts)
     std::getline(std::cin, command);
     if (std::cin.eof())
         EXIT();
+    if (command == "X" || command == "x")
+        Start();
+    if (command == "HELP" || command == "help")
+    {
+        PhoneBook();
+        ADD_NICK_NAME(Contacts);
+    }
     int flag = 0;
     for (unsigned int i = 0; i < command.length(); i++)
     {
@@ -97,6 +117,13 @@ void PhoneBook::ADD_PHONE_NUMBER(Contact &Contacts)
     std::getline(std::cin, command);
     if (std::cin.eof())
         EXIT();
+    if (command == "X" || command == "x")
+        Start();
+    if (command == "HELP" || command == "help")
+    {
+        PhoneBook();
+        ADD_PHONE_NUMBER(Contacts);
+    }
     int flag = 0;
     for (unsigned int i = 0; i < command.length(); i++)
     {
@@ -120,5 +147,12 @@ void PhoneBook::ADD_DARCKEST_SECRET(Contact &Contacts)
     std::getline(std::cin, command);
     if (std::cin.eof())
         EXIT();
+    if (command == "X" || command == "x")
+        Start();
+    if (command == "HELP" || command == "help")
+    {
+        PhoneBook();
+        ADD_DARCKEST_SECRET(Contacts);
+    }
     Contacts.set_darckest_secret(command);
 }
